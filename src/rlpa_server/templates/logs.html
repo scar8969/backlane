@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}Logs · rlpa-server{% endblock %}
+{% block content %}
+<h1>Access log</h1>
+<p class="lede">Bounded to the 200 newest rows. The live view is the SSE endpoint <span class="mono">{{ counts.stream }}</span>.</p>
+
+<div class="card">
+  <h2>Filter</h2>
+  <form class="row" method="get" action="{{ url_for('logs_page') }}">
+    <div class="field"><label for="q">path contains</label>
+      <input id="q" name="q" value="{{ q }}" placeholder="/api"></div>
+    <button class="btn" type="submit">Apply</button>
+    <a class="btn ghost" href="{{ url_for('logs_page') }}">Clear</a>
+  </form>
+</div>
+
+<div class="card">
+  <h2>Rows ({{ rows|length }}){% if q %} matching “{{ q }}”{% endif %}</h2>
+  {% if rows %}
+  <table>
+    <tr><th>id</th><th>method</th><th>path</th><th>user</th><th>status</th><th>ms</th><th>at</th></tr>
+    {% for l in rows %}
+    <tr>
+      <td class="mono">{{ l.id }}</td>
+      <td class="mono">{{ l.method }}</td>
+      <td class="mono">{{ l.path }}</td>
+      <td class="mono">{{ l.user }}</td>
+      <td><span class="tag {% if l.status and l.status < 400 %}ok{% else %}err{% endif %}">{{ l.status }}</span></td>
+      <td class="mono">{{ l.ms }}</td>
+      <td class="mono">{{ l.at.isoformat() if l.at else "—" }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+  {% else %}
+  <p class="empty">No log rows{% if q %} contain “{{ q }}”{% endif %}. Traffic through the proxy writes them.</p>
+  {% endif %}
+  <div class="row" style="margin-top:14px">
+    <a class="btn ghost" href="{{ counts.export }}">Export CSV</a>
+    <a class="btn ghost" href="{{ counts.stream }}">Open SSE stream</a>
+  </div>
+</div>
+{% endblock %}

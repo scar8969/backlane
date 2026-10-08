@@ -1,0 +1,41 @@
+openapi: 3.0.0
+info:
+  title: "🔀 rlpa-server"
+  version: 0.1.0
+paths:
+  /api/routes:
+    post:
+      summary: add route
+      responses:
+        "200":
+          description: ok
+  /api/routes:
+    get:
+      summary: list
+      responses:
+        "200":
+          description: ok
+  /api/routes/<id>:
+    delete:
+      summary: delete
+      responses:
+        "200":
+          description: ok
+  /api/logs:
+    get:
+      summary: logs
+      responses:
+        "200":
+          description: ok
+  /api/logs/stream:
+    get:
+      summary: SSE
+      responses:
+        "200":
+          description: ok
+  /api/logs/export:
+    get:
+      summary: CSV
+      responses:
+        "200":
+          description: ok

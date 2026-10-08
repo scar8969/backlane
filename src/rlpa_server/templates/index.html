@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block title %}Routes · rlpa-server{% endblock %}
+{% block content %}
+<h1>Reverse-proxy routes</h1>
+<p class="lede">{{ log_count }} access-log row(s) recorded so far. A request that matches no host falls through to the JSON 404 handler.</p>
+
+<div class="card">
+  <h2>Add a route</h2>
+  <form class="row" method="post" action="{{ url_for('route_add_form') }}">
+    <div class="field"><label for="host">host</label>
+      <input id="host" name="host" placeholder="app.example.com" required></div>
+    <div class="field"><label for="upstream">upstream</label>
+      <input id="upstream" name="upstream" placeholder="127.0.0.1:8000" required></div>
+    <div class="field"><label for="path">path</label>
+      <input id="path" name="path" value="/"></div>
+    <div class="field"><label for="auth">auth</label>
+      <select id="auth" name="auth">
+        <option value="none">none</option>
+        <option value="required">required</option>
+        <option value="api-key">api-key</option>
+      </select></div>
+    <div class="field"><label for="rate">rate / min</label>
+      <input id="rate" name="rate" type="number" min="0" value="100"></div>
+    <button class="btn" type="submit">Add route</button>
+  </form>
+</div>
+
+<div class="card">
+  <h2>Route table ({{ routes|length }})</h2>
+  {% if routes %}
+  <table>
+    <tr><th>id</th><th>host</th><th>path</th><th>upstream</th><th>auth</th><th>rate</th><th>last hit</th><th></th></tr>
+    {% for r in routes %}
+    <tr>
+      <td class="mono">{{ r.id }}</td>
+      <td class="mono">{{ r.host }}</td>
+      <td class="mono">{{ r.path }}</td>
+      <td class="mono">{{ r.upstream }}</td>
+      <td><span class="tag {% if r.auth == 'none' %}ok{% else %}warn{% endif %}">{{ r.auth }}</span></td>
+      <td class="mono">{{ r.rate_limit }}/min</td>
+      <td class="mono">{% if last_log.get(r.id) %}{{ last_log[r.id].method }} {{ last_log[r.id].path }} → {{ last_log[r.id].status }}{% else %}—{% endif %}</td>
+      <td>
+        <form method="post" action="{{ url_for('route_delete_form', rid=r.id) }}">
+          <button class="btn danger" type="submit">delete</button>
+        </form>
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+  {% else %}
+  <p class="empty">No routes yet. Add one with the form above, or POST JSON to <span class="mono">/api/routes</span>.</p>
+  {% endif %}
+</div>
+{% endblock %}

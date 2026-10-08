@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% block title %}rlpa-server{% endblock %}</title>
+<style>
+:root{--bg:#0f1115;--card:#171a21;--border:#232733;--text:#e6e9ef;--muted:#8b93a3;--accent:#4c8dff;--ok:#38d39f;--warn:#ffb020;--err:#ff5c5c}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:-apple-system,"Segoe UI",Roboto,sans-serif;min-height:100vh;display:flex;flex-direction:column}
+header{display:flex;align-items:center;gap:18px;padding:14px 26px;border-bottom:1px solid var(--border);background:var(--card)}
+header .brand{font-weight:700;font-size:15px;letter-spacing:.2px}
+header nav{display:flex;gap:14px}
+header nav a{color:var(--muted);text-decoration:none;font-size:13px;padding:4px 2px;border-bottom:2px solid transparent}
+header nav a:hover{color:var(--text)}
+header nav a.active{color:var(--accent);border-bottom-color:var(--accent)}
+header .sp{flex:1}
+header .meta{color:var(--muted);font-size:12px;font-family:ui-monospace,Consolas,monospace}
+main{flex:1;padding:26px;max-width:1080px;width:100%;margin:0 auto}
+h1{font-size:19px;margin-bottom:6px}
+.lede{color:var(--muted);font-size:13px;margin-bottom:18px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:18px;margin-bottom:16px}
+.card h2{font-size:14px;margin-bottom:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px}
+.row{display:flex;gap:10px;align-items:flex-end;flex-wrap:wrap}
+.field{display:flex;flex-direction:column;gap:4px}
+.field label{color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.4px}
+.btn{background:var(--accent);color:#fff;border:none;border-radius:6px;padding:7px 15px;font-size:13px;cursor:pointer;text-decoration:none;display:inline-block}
+.btn:hover{opacity:.9}
+.btn.ghost{background:transparent;border:1px solid var(--border);color:var(--text)}
+.btn.danger{background:transparent;border:1px solid var(--err);color:var(--err)}
+input,select{background:#0b0d11;border:1px solid var(--border);border-radius:6px;color:var(--text);padding:7px 11px;font-size:13px;min-width:150px}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{text-align:left;color:var(--muted);font-weight:500;padding:9px 11px;border-bottom:1px solid var(--border);font-size:11px;text-transform:uppercase;letter-spacing:.4px}
+td{padding:9px 11px;border-bottom:1px solid #1a1e27}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:#1a1e27}
+.mono{font-family:ui-monospace,Consolas,monospace;font-size:12px;color:#a8b3c4}
+.empty{color:var(--muted);font-size:13px;padding:14px 2px}
+.tag{display:inline-block;border-radius:10px;padding:2px 9px;font-size:11px;background:rgba(76,141,255,.15);color:var(--accent)}
+.tag.ok{background:rgba(56,211,159,.15);color:var(--ok)}
+.tag.warn{background:rgba(255,176,32,.15);color:var(--warn)}
+.tag.err{background:rgba(255,92,92,.15);color:var(--err)}
+footer{padding:18px 26px;border-top:1px solid var(--border);color:var(--muted);font-size:12px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+footer a{color:var(--muted)}
+</style>
+</head>
+<body>
+<header>
+  <span class="brand">🔀 rlpa-server</span>
+  <nav>
+    <a href="{{ links.index }}" class="{% if request.endpoint == 'index' %}active{% endif %}">Routes</a>
+    <a href="{{ links.logs }}" class="{% if request.endpoint == 'logs_page' %}active{% endif %}">Logs</a>
+    <a href="{{ links.health }}">Health</a>
+  </nav>
+  <span class="sp"></span>
+  <span class="meta">{{ counts.routes }} routes · {{ counts.logs }} log rows</span>
+</header>
+<main>
+{% block content %}{% endblock %}
+</main>
+<footer>
+  <span>{{ app_name }}</span>
+  <a href="{{ counts.stream }}">SSE stream</a>
+  <a href="{{ counts.export }}">Export CSV</a>
+  <a href="{{ links.health }}">/health</a>
+</footer>
+</body>
+</html>

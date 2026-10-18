@@ -66,6 +66,7 @@ Every route below is in [`openapi/backlane.yaml`](openapi/backlane.yaml) and is 
 | Method | Path | What it does |
 | --- | --- | --- |
 | `GET` | `/api/routes` | list |
+| `POST` | `/api/routes` | add route |
 | `DELETE` | `/api/routes/<id>` | delete |
 | `GET` | `/api/logs` | logs |
 | `GET` | `/api/logs/stream` | SSE |
@@ -102,7 +103,7 @@ These numbers were produced on this checkout by `pytest --cov` and by booting `w
 
 | Signal | Value |
 | --- | --- |
-| Tests | **23 / 23 passed** (3.8 s, exit 0) |
+| Tests | **23 / 23 passed** (2.3 s, exit 0) |
 | Line coverage | **68.1%** — 448 of 628 statements |
 | Source | 16 files / 1,430 lines |
 | Test code | 4 files / 227 lines |

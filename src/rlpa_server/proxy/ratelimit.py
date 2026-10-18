@@ -5,7 +5,7 @@ class SlidingWindow:
     def __init__(self, limit: int, window: int):
         self.limit = limit
         self.window = window
-        self._hits = {}
+        self._hits: dict[str, list[float]] = {}
 
     def hit(self, key):
         now = time.monotonic()

@@ -1,3 +1,5 @@
+from typing import Any
+
 from flask import Blueprint, Response, jsonify, request
 
 from ..models import AccessLog, Route, db
@@ -6,7 +8,7 @@ from .ratelimit import SlidingWindow
 from .router import forward, match
 
 bp = Blueprint("proxy", __name__)
-_limiters = {}
+_limiters: dict[str, Any] = {}
 
 
 @bp.post("/api/routes")
@@ -81,7 +83,7 @@ def log_stream():
     # otherwise every query raises "Working outside of application context".
     from flask import current_app
 
-    _app = current_app._get_current_object()
+    _app = current_app._get_current_object()  # type: ignore[attr-defined]
 
     def gen():
         with _app.app_context():

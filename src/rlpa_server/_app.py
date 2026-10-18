@@ -1,3 +1,5 @@
+from typing import Any
+
 from flask import Flask, jsonify, redirect, render_template, request, url_for
 
 from . import paths
@@ -51,7 +53,7 @@ def build_app():
         from .models import AccessLog, Route
 
         routes = Route.query.order_by(Route.id).all()
-        last_log = {}
+        last_log: dict[str, Any] = {}
         for row in AccessLog.query.order_by(AccessLog.id.desc()).limit(200).all():
             last_log.setdefault(row.route_id, row)
         ctx = _page_context()

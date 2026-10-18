@@ -1,7 +1,9 @@
 from datetime import datetime
+
 from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
+
 
 class Route(db.Model):
     __tablename__ = "routes"
@@ -14,6 +16,7 @@ class Route(db.Model):
     rate_window = db.Column(db.Integer, default=60)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
+
 class AccessLog(db.Model):
     __tablename__ = "access_logs"
     id = db.Column(db.Integer, primary_key=True)
@@ -25,6 +28,7 @@ class AccessLog(db.Model):
     ms = db.Column(db.Integer, default=0)
     ip = db.Column(db.String(64), default="")
     at = db.Column(db.DateTime, default=datetime.utcnow)
+
 
 class User(db.Model):
     __tablename__ = "users"

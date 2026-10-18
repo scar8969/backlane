@@ -1,5 +1,6 @@
 import time
 
+
 class SlidingWindow:
     def __init__(self, limit: int, window: int):
         self.limit = limit

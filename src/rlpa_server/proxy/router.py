@@ -1,7 +1,9 @@
 import httpx
 
+
 def match(host, path):
     from .models import Route
+
     # exact host+path first
     r = Route.query.filter_by(host=host, path=path).first()
     if r:
@@ -11,6 +13,7 @@ def match(host, path):
         if route.path.endswith("/*") and path.startswith(route.path[:-1]):
             return route
     return None
+
 
 def forward(route, method, path, headers, body):
     url = route.upstream.rstrip("/") + path

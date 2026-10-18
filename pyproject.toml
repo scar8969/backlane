@@ -3,13 +3,13 @@ requires = ["setuptools>=69", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "a9-rlpa-server"
+name = "backlane"
 version = "0.1.0"
-description = "A9 rlpa-server skeleton — reverse proxy with auth."
+description = "Reverse proxy with per-route auth: terminate, authenticate, forward and log every request."
 readme = "README.md"
 requires-python = ">=3.11"
 license = { text = "MIT" }
-authors = [{ name = "project-skeletons maintainers" }]
+authors = [{ name = "Priyanshu Rout" }]
 keywords = ["flask", "service", "rlpa_server"]
 classifiers = [
   "Development Status :: 4 - Beta",
@@ -47,7 +47,7 @@ Documentation = "https://example.invalid/rlpa_server/docs"
 Issues = "https://example.invalid/rlpa_server/issues"
 
 [project.scripts]
-a9-rlpa-server = "rlpa_server.cli:main"
+backlane = "rlpa_server.cli:main"
 
 [tool.setuptools]
 package-dir = { "" = "src" }

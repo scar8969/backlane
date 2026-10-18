@@ -1,6 +1,6 @@
 # Architecture -- Rlpa_server
 
-A9 rlpa-server skeleton — reverse proxy with auth.
+A9 rlpa-server service — reverse proxy with auth.
 
 This document explains how the service is put together, why the seams sit where
 they do, and what breaks first under load.
@@ -9,7 +9,7 @@ they do, and what breaks first under load.
 
 ## 1. Context
 
-a9_rlpa_server is a single-process Flask service. It owns its own database (SQLite by
+backlane is a single-process Flask service. It owns its own database (SQLite by
 default, any SQLAlchemy-supported backend via `DATABASE_URL`) and is deployed
 behind a reverse proxy or an orchestrator.
 
@@ -74,7 +74,7 @@ flowchart TB
 | `templates/base.html` | asset |
 | `templates/index.html` | asset |
 | `templates/logs.html` | asset |
-| `tests/test_a9_rlpa_server.py` | module |
+| `tests/test_backlane.py` | module |
 | `_app.py` | asset |
 
 ---
@@ -137,9 +137,9 @@ writable lives under `/app`.
 
 | Table | Owner |
 | --- | --- |
-| `routes` | owned by `a9_rlpa_server` |
-| `access_logs` | owned by `a9_rlpa_server` |
-| `users` | owned by `a9_rlpa_server` |
+| `routes` | owned by `backlane` |
+| `access_logs` | owned by `backlane` |
+| `users` | owned by `backlane` |
 
 Tables are created by the application's own bootstrap on first use. No migration
 tool is wired in; the schema is additive, and the service tolerates a missing or

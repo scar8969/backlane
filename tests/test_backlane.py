@@ -1,4 +1,4 @@
-"""A9 rlpa-server — tests. Run: pytest test_a9_rlpa_server.py"""
+"""A9 rlpa-server — tests. Run: pytest test_backlane.py"""
 import sys, os
 
 import pytest

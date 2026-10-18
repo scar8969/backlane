@@ -34,7 +34,7 @@ RUN groupadd --system --gid 1001 app \
 WORKDIR /app
 
 COPY --from=builder /wheels /wheels
-RUN python -m pip install --no-cache-dir --no-index --find-links=/wheels a9-rlpa-server \
+RUN python -m pip install --no-cache-dir --no-index --find-links=/wheels backlane \
  && rm -rf /wheels \
  && mkdir -p /var/lib/rlpa_server/instance /var/lib/rlpa_server/log \
  && chown -R app:app /var/lib/rlpa_server /app

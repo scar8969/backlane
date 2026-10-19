@@ -4,7 +4,7 @@ Every line below was produced by a command run against this exact checkout, on t
 
 | | |
 | --- | --- |
-| Generated | 2026-10-19 02:57 |
+| Generated | 2026-10-19 09:40 |
 | Python | 3.14.7 |
 | Platform | Windows 11 |
 
@@ -15,7 +15,7 @@ python -m pytest -q
 ```
 
 - exit code **0**
-- 23 passed in 1.62s
+- 23 passed in 1.46s
 
 ## Static gates
 
@@ -38,6 +38,18 @@ The application was imported through `wsgi.py` and each GET path declared in `op
 | 200 | `/api/logs/export` | 33 | text/csv |
 
 4 paths walked, 0 of them raised or answered 5xx.
+
+## CLI
+
+```
+usage: rlpa [-h] {route} ...
+
+positional arguments:
+  {route}
+
+options:
+  -h, --help  show this help message and exit
+```
 
 ## Screenshots
 

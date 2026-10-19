@@ -1,6 +1,6 @@
-from datetime import datetime
-
 from flask_sqlalchemy import SQLAlchemy
+
+from .clock import utcnow
 
 db = SQLAlchemy()
 
@@ -14,7 +14,7 @@ class Route(db.Model):
     auth = db.Column(db.String(16), default="none")  # none|required|api-key
     rate_limit = db.Column(db.Integer, default=100)
     rate_window = db.Column(db.Integer, default=60)
-    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    created_at = db.Column(db.DateTime, default=utcnow)
 
 
 class AccessLog(db.Model):
@@ -27,7 +27,7 @@ class AccessLog(db.Model):
     status = db.Column(db.Integer, default=0)
     ms = db.Column(db.Integer, default=0)
     ip = db.Column(db.String(64), default="")
-    at = db.Column(db.DateTime, default=datetime.utcnow)
+    at = db.Column(db.DateTime, default=utcnow)
 
 
 class User(db.Model):
